@@ -61,7 +61,7 @@ const Cadastro = () => {
   return (
     <View style={styles.container}>
       
-      <Image style={styles.imagem} source={uri= require("../../assets/logo.png")}></Image>
+      <Image style={styles.imagem} source={uri= require("../../../assets/logo.png")}></Image>
       <Text style={stilo.titulo}>Seja Bem-Vindo(a)!</Text>
       <TextInput style={styles.text} 
       placeholder="informe seu Nome" 

@@ -11,6 +11,8 @@ const Login = () => {
   const [condicao,setCondicao]=useState("informe seu login")
   const [user,setUser]= useState('');
   const [senha,setSenha]= useState('');
+  const [tipo,setTipo] = useState('');
+  setTipo(1)
   const mudarUser=(us)=>{
     setUser(us)
   }
@@ -26,19 +28,30 @@ const Login = () => {
   function entrar(){
     
       if (user == usuario && senha == password){
-        navigation.navigate('MainTab')
+        if (tipo == 1){
+          navigation.navigate('MainTab')
+        }
+        else{
+          navigation.navigate('MainClientTab')
+        }
+        
       } else{
         setCondicao("Login incorreto")
         setModalVisible(true)
       }
       
   }
+
+  {/*Aqui vai entrar a funcao que seleciona se o usuario 
+    é cliente ou barbeiro e manda para a tela correta.
+
+    */}
   
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       
-      <Image style={styles.imagem} source={uri= require("../../assets/logo.png")}></Image>
+      <Image style={styles.imagem} source={uri= require("../../../assets/logo.png")}></Image>
       <Text style={styles.titulo}>My App</Text>
       <TextInput style={styles.text} placeholder="digite o usuario" 
       value={user}
