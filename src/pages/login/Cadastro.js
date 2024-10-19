@@ -2,7 +2,7 @@ import { Text, StyleSheet,Image, View, TextInput,Button, Touchable, Pressable, A
 import { useState } from 'react';
 import styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Cadastro = () => {
@@ -15,6 +15,7 @@ const Cadastro = () => {
   const [numero,setNumero]= useState('');
   const [senha1,setSenha1]= useState('');
   const [senha,setSenha]= useState('');
+  const [email,setEmail]= useState('');
 
   const mudarUser=(us)=>{
     setUser(us)
@@ -33,10 +34,27 @@ const Cadastro = () => {
     setSenha(sn)
   }
 
-  function cadastrar(){
-      alert('clicou')
-  
+  mudarEmail=(em)=>{
+    setEmail(em)
   }
+
+  const cadastrar = async () => {
+    console.log(user + "-" + senha);
+    const requestOptions = {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name:nome,email:email,usuario: user, senha: senha,telefone :numero })
+    };
+    //caso esteja utilizando o emulador Android, usar o ip 10.0.2.2
+    await fetch('http://10.0.2.2:5000/cadastra', requestOptions)
+        .then(response => response.json())
+        
+        .catch(error => console.error('Error fetching data:', error));
+        conclui()
+  }
+  
+
   function entrar(){
     
       if (user == '' || nome == '' || numero == '' || senha == '' || senha1 ==''){
@@ -70,6 +88,13 @@ const Cadastro = () => {
       />
       <TextInput style={styles.text} 
       placeholder="Informe seu E-mail" 
+      value={email}
+      onChangeText={text=>mudarEmail(text)} 
+      autoComplete='email'
+      inputMode='email'
+      />
+      <TextInput style={styles.text} 
+      placeholder="crie um usuario" 
       value={user}
       onChangeText={text=>mudarUser(text)} 
       autoComplete='email'
@@ -111,7 +136,7 @@ const Cadastro = () => {
             <Text style={styles.modalText}>{condicao}</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => {setModalVisible(!modalVisible);conclui();}}>
+              onPress={() => {setModalVisible(!modalVisible);cadastrar();}}>
               <Text style={styles.textStyle}>Fechar</Text>
             </Pressable>
           </View>

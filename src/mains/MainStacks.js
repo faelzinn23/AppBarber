@@ -13,7 +13,7 @@ import MainClientTab from './MainClientTab';
 
 export default () => (
     <Stack.Navigator
-        initialRouteName="MainTab"
+        initialRouteName="Login"
         screenOptions = {{headerShown:false}}>
 
         <Stack.Screen
