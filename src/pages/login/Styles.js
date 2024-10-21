@@ -5,8 +5,9 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: 'lightblue',
-      padding: 8,
+      backgroundColor:'#131313',
+      padding:25
+      
     },
     imagem:{
       maxHeight: 200,
@@ -17,27 +18,30 @@ const styles = StyleSheet.create({
   
     },
     text:{
+        color:'lightyellow',
         textAlign:'center',
         height: 35,
         borderWidth:1,
         borderRadius:8,
+        borderColor:'lightyellow',
         borderStyle:'solid',
-        width:150,
-        margin:15,
+        width:200,
+        marginVertical:8,
+        
         
   
       
     },
     titulo:{
+      color:'lightyellow',
       padding:15,
       textAlign:'center',
       fontSize:17,
     },
     botao:{
-      padding:50,
-      width:'100%',
+      margin:29,
+      width:'80%',
       
-      borderRadius:28,
     },
     cadastro:{
       color:'blue',
@@ -66,18 +70,18 @@ const styles = StyleSheet.create({
       elevation: 5,
     },
     button: {
-      borderRadius: 20,
-      padding: 10,
-      elevation: 2,
+      borderRadius: 18,
+      padding: 15,
+      
     },
     buttonOpen: {
-      backgroundColor: '#F194FF',
+      backgroundColor: 'darkorange',
     },
     buttonClose: {
       backgroundColor: '#2196F3',
     },
     textStyle: {
-      color: 'white',
+      color: 'black',
       fontWeight: 'bold',
       textAlign: 'center',
     },

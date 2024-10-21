@@ -5,12 +5,10 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor:'blue',
+        backgroundColor:'#303030',
+        
       },
-      text:  
-     {
-        fontSize: 20,
-      },
+
 
   
   })

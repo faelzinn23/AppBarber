@@ -11,6 +11,7 @@ import Cadastro from '../pages/login/Cadastro';
 import MainTab from './MainTab'
 import MainClientTab from './MainClientTab';
 
+
 export default () => (
     <Stack.Navigator
         initialRouteName="Login"
@@ -34,6 +35,7 @@ export default () => (
             name="MainClientTab" 
             component={MainClientTab}
         />
+
         </Stack.Navigator>
 )  
             

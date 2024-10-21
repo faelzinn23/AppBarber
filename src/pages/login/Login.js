@@ -3,17 +3,17 @@ import { useState } from 'react';
 import styles from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const Login = () => {
-  const navigation = useNavigation();
+const Login = ({navigation}) => {
+ 
 
   const [condicao,setCondicao]=useState("informe seu login")
   const [user,setUser]= useState('fael');
   const [senha,setSenha]= useState('123');
 
-//Aqui estamos armazenando os dados usando o AsyncStorage
+
 const armazenarUsuario = async (value) => {
   try {
-      const jsonValue = JSON.stringify(value); //serializando
+      const jsonValue = JSON.stringify(value);
       await AsyncStorage.setItem('usuario', jsonValue);
   } catch (e) {
       console.error(e);
@@ -32,9 +32,15 @@ const retornoLogin = (data) => {
     setModalVisible(true)
   }else if (data[0]['usuario'] != "")
 		if (data[0]['ADM'] !=""){
-      navigation.navigate('MainTab');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'MainTab' }],
+      });
     }else{
-      navigation.navigate('MainClientTab');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'MainClientTab' }],
+      });
     }
 }
 
@@ -63,36 +69,28 @@ const validar = async () => {
     setSenha(sn)
   }
 
-  function cadastrar(){
-      alert('clicou')
-  
-  }
-
-  
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       
       <Image style={styles.imagem} source={uri= require("../../../assets/logo.png")}></Image>
       <Text style={styles.titulo}>My App</Text>
-      <TextInput style={styles.text} placeholder="digite o usuario" 
+      <TextInput style={styles.text} 
+      placeholder="digite o usuario" 
+      placeholderTextColor="lightyellow" 
       value={user}
       onChangeText={text=>mudarUser(text)} 
       />
 
       <TextInput style={styles.text} 
     placeholder="digite a senha"
+    placeholderTextColor="lightyellow"
     value={senha}
     onChangeText={text=>mudarSenha(text)}
     secureTextEntry={true}
     />
 
-    {/* 
-    <Button title='entar' 
-            color=''
-            onPress={entrar}
-    ></Button>
-     */}
+ 
      <View style={styles.botao} >
       <Modal
         animationType="slide"
@@ -108,7 +106,7 @@ const validar = async () => {
             <Pressable
               style={[styles.button, styles.buttonClose]}
               onPress={() => setModalVisible(!modalVisible)}>
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>Fechar</Text>
             </Pressable>
           </View>
         </View>
@@ -119,7 +117,7 @@ const validar = async () => {
         <Text style={styles.textStyle}>Entrar</Text>
       </Pressable>
       </View>
-      <Text style={{marginTop:-30}}>
+      <Text style={{color:'#ffff5b'}}>
         Não possui cadastro?  
         <Text onPress={() => navigation.navigate('Cadastro')}
             style={styles.cadastro}
