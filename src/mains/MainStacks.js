@@ -10,11 +10,14 @@ import Login from '../pages/login/Login';
 import Cadastro from '../pages/login/Cadastro';
 import MainTab from './MainTab'
 import MainClientTab from './MainClientTab';
+import CadastraProduto from '../pages/admin/cadastra/CadastraProduto';
+import CadastraServico from '../pages/admin/cadastra/CadastraServico';
+import Produtos from '../pages/admin/Produtos';
 
 
 export default () => (
     <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="MainTabCli"
         screenOptions = {{headerShown:false}}>
 
         <Stack.Screen
@@ -35,6 +38,15 @@ export default () => (
             name="MainClientTab" 
             component={MainClientTab}
         />
+        <Stack.Screen 
+            name="CadastraProduto" 
+            component={CadastraProduto}
+        />
+        <Stack.Screen 
+            name="CadastraServico" 
+            component={CadastraServico}
+        />
+
 
         </Stack.Navigator>
 )  
