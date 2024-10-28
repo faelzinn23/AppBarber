@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../pages/cliente/Home_cli";
 import Profile from "../pages/cliente/Profile_cli";
-import Agendar from "../pages/cliente/Agendar";
+import Agendar from "../pages/cliente/agendar/Agendar";
 import Agendamentos from "../pages/cliente/Historico";
 import Produtos from "../pages/cliente/Produtos_cli";
 import {Ionicons} from '@expo/vector-icons'
