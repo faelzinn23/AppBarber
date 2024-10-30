@@ -51,9 +51,7 @@ const CadastraProduto = ({navigation}) => {
   }
 
   const retorna = () =>{
-    navigation.reset({
-      routes:[{name: 'Produtos'}]
-    })
+    
     navigation.goBack()
   }
   

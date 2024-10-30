@@ -45,6 +45,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
           <Text style={stilo.text}>Usuario: {usuario.usuario}</Text>
           <Text style={stilo.text}>Email: {usuario.email}</Text>
           <Text style={stilo.text}>Telefone: {usuario.telefone}</Text>
+          <Text style={stilo.text}>ID: {usuario.id}</Text>
 
         </View>
         <View >

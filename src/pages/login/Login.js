@@ -7,8 +7,8 @@ const Login = ({navigation}) => {
  
 
   const [condicao,setCondicao]=useState("informe seu login")
-  const [user,setUser]= useState('cliente');
-  const [senha,setSenha]= useState('456');
+  const [user,setUser]= useState('fael');
+  const [senha,setSenha]= useState('123');
 
 
 const armazenarUsuario = async (value) => {

@@ -56,7 +56,7 @@ import styles from '../Styles';
     useEffect(() => {
       
       obterListaServicos();
-      console.log(IdServico)
+      
       
     }, [IdServico]);
    
@@ -115,8 +115,8 @@ import styles from '../Styles';
       borderColor: '#ddd',
       borderRadius: 5,
       padding: 5,
-      maxHeight: 220, // Limita a altura da lista
-      elevation: 2, // Sombra no Android
+      maxHeight: 220, 
+      elevation: 2, 
       
   
       

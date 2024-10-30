@@ -1,5 +1,6 @@
 import { Text, StyleSheet, View, FlatList, ScrollView,SectionList, Image, Pressable,Alert } from 'react-native';
 import { useState,useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import React from 'react';
 import {Ionicons} from '@expo/vector-icons'
 
@@ -78,11 +79,12 @@ const Produtos_cli = ({navigation})=>{
                 .catch(error => console.error('Error fetching data:', error));
     };
     
-    useEffect(() => {
-      obterListaProdutos();
-      obterListaServicos();
-      
-    }, []);
+    useFocusEffect(
+      React.useCallback(() => {
+        obterListaProdutos();
+        obterListaServicos();
+      },[])
+    );
 
 
   return (

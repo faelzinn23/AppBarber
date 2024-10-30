@@ -3,7 +3,7 @@ import { useState,useEffect } from 'react';
 import React from 'react';
 import {Ionicons} from '@expo/vector-icons'
 import styles from './Styles'
-
+import { useFocusEffect } from '@react-navigation/native';
 
 const Produtos = ({navigation})=>{
   
@@ -14,6 +14,11 @@ const Produtos = ({navigation})=>{
     {title: 'Serviços',data: servicos, },
     {title: 'Produtos',data: produtos, },
   ];
+  const [refresh,setRefresh] = useState(0)
+
+  const recarregarPagina = () => {
+    setRefresh(refresh + 1); 
+  };
 
   const Produto = ({id,nome,preco,imagem,descricao})=>(
     <View style={stilo.itens}>
@@ -160,17 +165,15 @@ const Produtos = ({navigation})=>{
       }else{
         alert(msg.status)
       }
-      navigation.reset({
-        routes:[{name: 'Produtos'}]
-      })
+      recarregarPagina()
     }
-
-    useEffect(() => {
-      obterListaProdutos();
-      obterListaServicos();
-      
-    }, []);
-
+    useFocusEffect(
+      React.useCallback(() => {
+        obterListaProdutos();
+        obterListaServicos();
+      },[refresh])
+    );
+ 
 
   return (
     <View style={stilo.conteiner}>

@@ -14,6 +14,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
     const [date, setDate] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
     const [condicao,setCondicao]=useState("informe seu login")
+    const [refresh,setRefresh] = useState(0)
+
+  const recarregarPagina = () => {
+    setRefresh(refresh + 1); 
+  };
     const salvaIdServico = (id) => {
       setIdServico(id);
       
@@ -56,6 +61,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
     useEffect(() => {
       obterDadosUsuario();
     }, []);
+
     const criaAgendamento = async () => {
       if (!IdServico  || !date  || !IdHora ){
         setCondicao("Preencha todos os campos")
