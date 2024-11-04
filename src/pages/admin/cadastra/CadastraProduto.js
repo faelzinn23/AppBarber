@@ -54,6 +54,13 @@ const CadastraProduto = ({navigation}) => {
     
     navigation.goBack()
   }
+  const limpaForm = () => {
+    setDescricao(null)
+    setNome(null)
+    setPreco(null)
+    setImagem(null)
+    setTemp(null)
+  };
   
   function conclui(msg) {
   
@@ -114,7 +121,7 @@ const CadastraProduto = ({navigation}) => {
             <Text style={styles.modalText}>{condicao}</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => {setModalVisible(!modalVisible);}}>
+              onPress={() => {setModalVisible(!modalVisible);limpaForm();}}>
               <Text style={styles.textStyle}>Fechar</Text>
             </Pressable>
           </View>

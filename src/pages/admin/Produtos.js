@@ -209,10 +209,9 @@ const stilo = StyleSheet.create({
   conteiner:{
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'left',
     backgroundColor:'#303030',
-    paddingHorizontal:20,
     paddingTop:50,
+    paddingHorizontal:'7%'
     
         
   },

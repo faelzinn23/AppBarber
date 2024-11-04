@@ -17,6 +17,7 @@ const Produtos_cli = ({navigation})=>{
   ];
 
   const Produto = ({id,nome,preco,imagem,descricao})=>(
+    <View style={{width:'100%'}}>
     <View style={stilo.itens}>
         <Image style={stilo.imagem} source={{uri:imagem}}></Image>
         <View style={stilo.inf}>
@@ -25,7 +26,7 @@ const Produtos_cli = ({navigation})=>{
           <Text></Text>
           <Text style={stilo.preco}>R${(preco.toFixed(2))}</Text>
         </View>
-
+    </View>
     </View>
   );
   const Servico = ({id,nome,preco,imagem,descricao,duracao})=>(
@@ -115,10 +116,9 @@ const stilo = StyleSheet.create({
   conteiner:{
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'left',
     backgroundColor:'#303030',
-    paddingHorizontal:20,
     paddingTop:50,
+    paddingHorizontal:'7%'
     
         
   },
@@ -126,8 +126,8 @@ const stilo = StyleSheet.create({
     justifyContent:'center',
     backgroundColor:'yellow',
     borderRadius:10,
-    padding:5
-
+    padding:5,
+    
   },
   header:{
     
@@ -140,7 +140,6 @@ const stilo = StyleSheet.create({
     borderRadius:10,
     justifyContent: 'center',
     alignItems: 'center',
-    width:'100%',
     backgroundColor:'#ff9a1e',
     marginVertical:10,
     flexGrow:1,
@@ -153,12 +152,16 @@ const stilo = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+    width:'100%',
     
+
     
   },
   secao:{
     fontSize:20,
     color:'lightyellow',
+   
+    
     
   },
   imagem:{

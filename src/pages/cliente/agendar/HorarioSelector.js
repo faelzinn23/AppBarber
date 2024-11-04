@@ -46,7 +46,7 @@ import styles from '../Styles';
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             body: JSON.stringify({ data : selectedDate})
         };
-        await fetch('http://10.0.2.2:5000/horarios',requestOptions)
+        await fetch('http://10.0.2.2:5000',requestOptions)
                 .then(response => response.json())
                 .then(horas => setHorario(horas))
                 .catch(error => console.error('Error fetching data:', error));

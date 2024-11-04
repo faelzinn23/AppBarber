@@ -33,6 +33,13 @@ const CadastraServico = ({navigation}) => {
   const mudarTemp=(sn)=>{
     setTemp(sn)
   }
+  const limpaForm = () => {
+    setDescricao(null)
+    setNome(null)
+    setPreco(null)
+    setImagem(null)
+    setTemp(null)
+  };
 
   const cadastrar = async () => {
     if (!descricao  || !nome   || !preco  || !temp ){
@@ -128,7 +135,7 @@ const CadastraServico = ({navigation}) => {
             <Text style={styles.modalText}>{condicao}</Text>
             <Pressable
               style={[styles.button, styles.buttonClose]}
-              onPress={() => {setModalVisible(!modalVisible);}}>
+              onPress={() => {setModalVisible(!modalVisible);limpaForm();}}>
               <Text style={styles.textStyle}>Fechar</Text>
             </Pressable>
           </View>

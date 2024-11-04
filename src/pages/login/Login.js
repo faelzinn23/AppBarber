@@ -53,8 +53,8 @@ const validar = async () => {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({ usuario: user, senha: senha })
   };
-  //caso esteja utilizando o emulador Android, usar o ip 10.0.2.2
-  await fetch('http://10.0.2.2:5000/login', requestOptions)
+  //caso esteja utilizando o emulador Android, usar o ip 10.0.2.2:5000
+  await fetch('http://10.0.2.2:5000//login', requestOptions)
       .then(response => response.json())
       .then(data => retornoLogin(data))
       .catch(error => console.error('Error fetching data:', error));
