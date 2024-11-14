@@ -73,7 +73,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
           mode: 'cors',
           headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
           body: JSON.stringify({ idServico:IdServico, data:date , idHora: IdHora , idCliente:usuario.id})
+          
+        
         };
+        console.log(IdServico,date,IdHora,usuario.id)
+    
         //caso esteja utilizando o emulador Android, usar o ip 10.0.2.2
         await fetch('http://10.0.2.2:5000/criaAgendamento', requestOptions)
           .then(response => response.json())

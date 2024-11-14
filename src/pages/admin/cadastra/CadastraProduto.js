@@ -59,7 +59,6 @@ const CadastraProduto = ({navigation}) => {
     setNome(null)
     setPreco(null)
     setImagem(null)
-    setTemp(null)
   };
   
   function conclui(msg) {

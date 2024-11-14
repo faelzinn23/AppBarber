@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
   const Profile_cli = ({navigation}) => {
 
     
-      const [usuario, setUsuario] = useState({});
+    const [usuario, setUsuario] = useState({});
 
       useEffect(() => {
           obterDadosUsuario();

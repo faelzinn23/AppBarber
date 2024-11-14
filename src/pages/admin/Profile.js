@@ -44,14 +44,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       }else{
         console.log(date.split('/'))
         try{
-          const [dia, mes, ano] = date.split('/');
-          setDataFormatada(`${ano}-${mes}-${dia}`)
+          
+          console.log(dataFormatada)
           console.log(date)
           geraHorarios()
         }catch (error){
           alert(error)
         }
       }
+    };
+    const Setdt = (dt) => {
+      setDate(dt)
+      const [dia, mes, ano] = dt.split('/');
+      setDataFormatada(`${ano}-${mes}-${dia}`)
     };
 
     const geraHorarios = async () => {
@@ -109,7 +114,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
                 placeholder='digite uma data: (DD/MM/AAA)'
                 placeholderTextColor="black"
                 value={date}
-                onChangeText={setDate}/>
+                onChangeText={dt =>Setdt(dt)}/>
                 </View>
                 
                 <Pressable style={stilo.btnDisp}
@@ -238,6 +243,7 @@ export default Profile;
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      
       
       
     },

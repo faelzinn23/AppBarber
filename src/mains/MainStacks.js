@@ -17,7 +17,7 @@ import Produtos from '../pages/admin/Produtos';
 
 export default () => (
     <Stack.Navigator
-        initialRouteName="MainTab"
+        initialRouteName="Login"
         screenOptions = {{headerShown:false}}>
 
         <Stack.Screen

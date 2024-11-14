@@ -1,6 +1,6 @@
 import React, { useState,useEffect} from 'react';
 import { View, Text, FlatList, TouchableOpacity, Modal, Button, StyleSheet,TextInput } from 'react-native';
-
+import { useFocusEffect } from '@react-navigation/native';
 const InputDate = ({onInputDate}) => {
   const getCurrentDate = () => {
     const date = new Date();
@@ -49,9 +49,12 @@ const InputDate = ({onInputDate}) => {
 };
 
 
-    useEffect(() => {
+   
+    useFocusEffect(
+      React.useCallback(() => {
         obterDatasDisponiveis();
-    }, [date]);
+      },[date])
+    );
 
   return (
     <View style={styles.container}>
@@ -140,7 +143,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#fff',
     borderRadius: 10,
-    maxHeight:450
+    maxHeight:300,
   },
   modalTitle: {
     fontSize: 18,

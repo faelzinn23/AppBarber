@@ -7,8 +7,8 @@ const Login = ({navigation}) => {
  
 
   const [condicao,setCondicao]=useState("informe seu login")
-  const [user,setUser]= useState('fael');
-  const [senha,setSenha]= useState('123');
+  const [user,setUser]= useState('');
+  const [senha,setSenha]= useState('');
 
 
 const armazenarUsuario = async (value) => {
@@ -31,7 +31,7 @@ const retornoLogin = (data) => {
       setCondicao(("login incorreto"));
     setModalVisible(true)
   }else if (data[0]['usuario'] != "")
-		if (data[0]['ADM'] !=""){
+		if (data[0]['ADM'] == 1){
       navigation.reset({
         index: 0,
         routes: [{ name: 'MainTab' }],

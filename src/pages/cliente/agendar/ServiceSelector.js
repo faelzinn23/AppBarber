@@ -1,6 +1,7 @@
 import { Text, StyleSheet, View ,FlatList,TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import styles from '../Styles';
+import { useFocusEffect } from '@react-navigation/native';
 
   const SelectService = ({onSelectService}) => {
 
@@ -53,12 +54,15 @@ import styles from '../Styles';
                 .then(services => setServicos(services))
                 .catch(error => console.error('Error fetching data:', error));
     };
-    useEffect(() => {
-      
-      obterListaServicos();
-      
-      
-    }, [IdServico]);
+
+    useFocusEffect(
+      React.useCallback(() => {
+        setShowServices(false)
+        setSelecionado('Selecione um servico:')
+        obterListaServicos();
+      },[IdServico])
+    );
+    
    
     return (
       <View style={stilo.container} >

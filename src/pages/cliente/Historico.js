@@ -53,7 +53,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
               <Text style={{fontWeight:'bold' , backgroundColor:'lightblue', padding:7,borderRadius:4}}>{status[0].toUpperCase() + status.substring(1)}</Text>
               <Pressable
               style={{backgroundColor:'red', borderRadius:5, padding:7,}}
-                onPress={() => cancela(id)}>
+                onPress={() => cancela(id,data,hora)}>
                 <Text style={{fontWeight:'bold' ,textAlign:'center' , marginTop:'auto'}} >Cancelar</Text>
                 </Pressable>
               
@@ -112,7 +112,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
   
     );
   };
-  const cancela = async (id) => {
+  const cancela = async (id,data,hora) => {
     Alert.alert(
       'Confirmação',
       'Tem certeza que deseja cancelar esse agendamento',
@@ -123,7 +123,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
           style: 'cancel',
         },
         { text: 'OK', onPress: () => {
-          cancelaAgendamento(id)
+          cancelaAgendamento(id,data,hora)
           
     
         }},
@@ -134,12 +134,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
     
   }
   
-  const cancelaAgendamento = async (id) => {
+  const cancelaAgendamento = async (id,data,hora) => {
     const requestOptions = {
       method: 'PUT',
       mode: 'cors',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id:id})
+      body: JSON.stringify({ id:id, hora:hora,data:data})
     };
     
     await fetch('http://10.0.2.2:5000/agendaCli',requestOptions)
@@ -189,6 +189,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
             renderAgendamento({item})
             
           )}
+          ListEmptyComponent={() => (
+            <View style={{justifyContent:'center',flex:1,paddingVertical:50,marginVertical:30,}}> 
+              <View style={stilo.vasio}>
+              <Text style={{fontSize:25,textAlign:'center',color:'white'}}>Não possui agendamentos</Text>
+            </View>
+            </View>
+              
+            
+          )}
         />
         </View>
         
@@ -203,7 +212,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor:'#303031',
+      backgroundColor:'#303030',
+      
       
     },
     agendamento: {
@@ -216,7 +226,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       borderRadius:5,
       elevation:10,
       width:'100%',
-      height:100
+      height:100,
+      
       
       
     },
@@ -224,6 +235,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       flexGrow:1,
       marginTop:'30%',
       width:'85%',
+      marginBottom:'7%',
       
 
 
@@ -233,6 +245,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
       color:'lightyellow',
       marginBottom:25,
       
-    }
+    },
+    vasio:{
+      
+      borderRadius:15,
+      backgroundColor:'#404040',
+      borderWidth:1,
+      borderColor:'orange',
+      elevation:4,
+      justifyContent:'center',
+      height:120,
+      
+      
+    },
 
 })

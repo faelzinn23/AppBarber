@@ -1,13 +1,27 @@
-import { Text, StyleSheet, View, FlatList} from 'react-native';
+import { Text, StyleSheet, View, FlatList,TouchableOpacity,Alert,Modal, Button, Pressable} from 'react-native';
 import React, { useState,useEffect} from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import InputDate from './InputDate';
   const Agendamentos = () => {
 
     const [agendamentos, setAgendamentos] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modal1Visible, setModal1Visible] = useState(false);
+    const [infoId, setInfoId] = useState('');
+    const [infoData, setInfoData] = useState('');
+    const [infoHora, setInfohora] = useState('');
+    const [infoServ, setInfoServ] = useState('');
+    const [infoCli, setInfoCli] = useState('');
+    const [infoStatus, setInfoStatus] = useState('');
+    const [refresh,setRefresh] = useState(0)
 
+    const recarregarPagina = () => {
+      setRefresh(refresh + 1); 
+    };
     const Agendamento = ({id,clientNome,servicoNome,idHorario,data,hora,status,dataF})=>{
+      if(status == 'agendado'){
         return(
+          <TouchableOpacity onPress={() => mostraModal(id,dataF,hora,servicoNome,clientNome,status)}>
             <View style={stilo.agendamento}>
               <View style={{flexDirection:'row',justifyContent:'space-between',width:'100%',}}>
                 <View style={{ }}>
@@ -18,26 +32,80 @@ import InputDate from './InputDate';
                 </View>
                 <View style={{justifyContent:'space-between',alignItems:'flex-end',width:'50%'}}>
                 <Text style={{fontSize:25,color:'white', }}>{servicoNome[0].toUpperCase() + servicoNome.substring(1)} </Text>
-                <Text>{status}</Text>
+                <Text style={{backgroundColor:'lightyellow',padding:7}}>{status}</Text>
                 </View>
               </View>
               
-              {/* <View style={{flexDirection:'column', justifyContent:'space-between'}}>
-                <Text style={{fontWeight:'bold' , backgroundColor:'lightblue', padding:7,borderRadius:4}}>{status[0].toUpperCase() + status.substring(1)}</Text>
-                <Pressable
-                style={{backgroundColor:'red', borderRadius:5, padding:7,}}
-                  onPress={() => cancela(id)}>
-                  <Text style={{fontWeight:'bold' ,textAlign:'center' , marginTop:'auto'}} >Cancelar</Text>
-                  </Pressable>
-                
-              </View> */}
             </View>
-        )
+            
       
+            </TouchableOpacity>
+            
+        )
+      }else if(status == 'cancelado'){
+        return(
+          <TouchableOpacity onPress={() => mostraModal1(id,dataF,hora,servicoNome,clientNome,status)}>
+          <View style={stilo.agendamento}>
+            <View style={{flexDirection:'row',justifyContent:'space-between',width:'100%',}}>
+              <View style={{ }}>
+              <Text style={{fontSize:25,color:'white', }}>{clientNome[0].toUpperCase() + clientNome.substring(1)} </Text>
+              <Text style={{fontWeight:'bold',color:'lightyellow',}}>Data:{dataF[2]}/{dataF[1]}/{dataF[0]}</Text>
+              <Text style={{fontWeight:'bold',color:'lightyellow',}}>Hora:{hora}</Text>
+              <Text style={{}}>id:{id}</Text>
+              </View>
+              <View style={{justifyContent:'space-between',alignItems:'flex-end',width:'50%'}}>
+              <Text style={{fontSize:25,color:'white', }}>{servicoNome[0].toUpperCase() + servicoNome.substring(1)} </Text>
+              <Text style={{backgroundColor:'red',padding:7}}>{status}</Text>
+              </View>
+            </View>
+            
+          </View>
+          </TouchableOpacity>
+        )
+      }else if(status == 'concluido'){
+        return(
+          <TouchableOpacity onPress={() => mostraModal1(id,dataF,hora,servicoNome,clientNome,status)}>
+          <View style={stilo.agendamento}>
+            <View style={{flexDirection:'row',justifyContent:'space-between',width:'100%',}}>
+              <View style={{ }}>
+              <Text style={{fontSize:25,color:'white', }}>{clientNome[0].toUpperCase() + clientNome.substring(1)} </Text>
+              <Text style={{fontWeight:'bold',color:'lightyellow',}}>Data:{dataF[2]}/{dataF[1]}/{dataF[0]}</Text>
+              <Text style={{fontWeight:'bold',color:'lightyellow',}}>Hora:{hora}</Text>
+              <Text style={{}}>id:{id}</Text>
+              </View>
+              <View style={{justifyContent:'space-between',alignItems:'flex-end',width:'50%'}}>
+              <Text style={{fontSize:25,color:'white', }}>{servicoNome[0].toUpperCase() + servicoNome.substring(1)} </Text>
+              <Text style={{backgroundColor:'#1bad46',padding:7}}>{status}</Text>
+              </View>
+            </View>
+            
+          </View>
+          </TouchableOpacity>
+        )
+      }
      
       
     };
-    
+     const mostraModal = (id,dataF,hora,servicoNome,clientNome,status) => {
+      setInfoId (id);
+      setInfoData(dataF);
+      setInfohora(hora);
+      setInfoServ(servicoNome);
+      setInfoCli(clientNome);
+      setInfoStatus(status);
+      setModalVisible(true)
+      
+     }
+     const mostraModal1 = (id,dataF,hora,servicoNome,clientNome,status) => {
+      setInfoId (id);
+      setInfoData(dataF);
+      setInfohora(hora);
+      setInfoServ(servicoNome);
+      setInfoCli(clientNome);
+      setInfoStatus(status);
+      setModal1Visible(true)
+      
+     }
     
     const renderAgendamento = ({ item }) => {
       return(
@@ -79,11 +147,7 @@ import InputDate from './InputDate';
       }
       const [date, setDate] = useState(getCurrentDate());
   
-      useFocusEffect(
-        React.useCallback(() => {
-          obterListaAgendamentos();
-        },[date])
-      );
+      
 
   
 
@@ -98,6 +162,93 @@ import InputDate from './InputDate';
       setDate(dataFormatada)
       
     }
+    const concluirAgendamento= async () =>{
+      Alert.alert(
+        'Confirmação',
+        'Concluir Atendimento?' ,
+        [
+          {
+            text: 'Cancelar',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          { text: 'OK', onPress: () => {
+            concluiAt()
+            
+      
+      }},
+    ],
+    { cancelable: false },
+  );  
+      
+    }
+
+    const cancelaAgendamento = async() =>{
+      Alert.alert(
+        'Confirmação',
+        'Tem certeza que deseja cancelar o agendamento' ,
+        [
+          {
+            text: 'Cancelar',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          { text: 'OK', onPress: () => {
+            cancela()
+            
+      
+      }},
+    ],
+    { cancelable: false },
+  );  
+      
+    }
+    const cancela = async () => {
+      const requestOptions = {
+        method: 'DELETE',
+        mode: 'cors',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id:infoId})
+    };
+    //caso esteja utilizando o emulador Android, usar o ip 10.0.2.2
+      await fetch('http://10.0.2.2:5000/agendaBarb', requestOptions)
+        .then(response => response.json())
+        .then(data => conclui(data))
+        .catch(error => console.error('Error fetching data:', error));
+      
+    }
+    const concluiAt = async () => {
+      const requestOptions = {
+        method: 'PUT',
+        mode: 'cors',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id:infoId})
+    };
+    //caso esteja utilizando o emulador Android, usar o ip 10.0.2.2
+      await fetch('http://10.0.2.2:5000/agendaBarb', requestOptions)
+        .then(response => response.json())
+        .then(data => conclui(data))
+        .catch(error => console.error('Error fetching data:', error));
+      
+    }
+
+
+
+    const conclui = (msg) => {
+      if(msg.error){
+        alert(msg.error)
+      }else{
+        alert(msg.status)
+      }
+      setModalVisible(false)
+      recarregarPagina()
+    }
+
+    useFocusEffect(
+      React.useCallback(() => {
+        obterListaAgendamentos();
+      },[date,refresh])
+    );
     return (
       <View style={stilo.container}>
         <View style={stilo.item}>
@@ -117,6 +268,62 @@ import InputDate from './InputDate';
           )}
         />
         </View>
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={stilo.modalContainer}>
+          <View style={stilo.modalContent}>
+            <Text style={stilo.modalTitle}>Agendamento {infoId} </Text>
+            <Text style={{fontSize:20, margin:5}}>Cliente: {infoCli} </Text>
+            <Text style={{fontSize:20, margin:5}}>Servico: {infoServ} </Text>
+            <Text style={{fontSize:20, margin:5}}>Data: {infoData[2]}/{infoData[1]}/{infoData[0]} </Text>
+            <Text style={{fontSize:20, margin:5}}>Hora: {infoHora} </Text>
+            <Text style={{fontSize:20, margin:5}}>Status: {infoStatus} </Text>
+            <Pressable style={stilo.btnDisp}
+                  onPress={() => {concluirAgendamento()}}>
+                  <Text >Concluir Atendimento</Text>
+            </Pressable>
+
+            <Pressable style={stilo.btnClose}
+                  onPress={() => {cancelaAgendamento()}}>
+                  <Text >Cancelar Agendamento</Text>
+            </Pressable>
+
+            <Pressable style={[stilo.btnClose,{backgroundColor:'#728afe'}]}
+                  onPress={() => {setModalVisible(false)}}>
+                  <Text style={{fontWeight:'bold'}}>Fechar</Text>
+            </Pressable>
+
+            
+          </View>
+        </View>
+        </Modal>
+        <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modal1Visible}
+        onRequestClose={() => setModal1Visible(false)}
+      >
+        <View style={stilo.modalContainer}>
+          <View style={stilo.modalContent}>
+            <Text style={stilo.modalTitle}>Agendamento {infoId} </Text>
+            <Text style={{fontSize:20, margin:5}}>Cliente: {infoCli} </Text>
+            <Text style={{fontSize:20, margin:5}}>Servico: {infoServ} </Text>
+            <Text style={{fontSize:20, margin:5}}>Data: {infoData[2]}/{infoData[1]}/{infoData[0]} </Text>
+            <Text style={{fontSize:20, margin:5}}>Hora: {infoHora} </Text>
+            <Text style={{fontSize:20, margin:5}}>Status: {infoStatus} </Text>
+          
+            <Pressable style={[stilo.btnClose,{backgroundColor:'#728afe'}]}
+                  onPress={() => {setModal1Visible(false)}}>
+                  <Text style={{fontWeight:'bold'}}>Fechar</Text>
+            </Pressable>
+          </View>
+        </View>
+        </Modal>
+
       </View>
     );
   };
@@ -174,6 +381,57 @@ import InputDate from './InputDate';
       color:'lightyellow',
       marginBottom:25,
       
-    }
+    },
+    modalContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      
+    },
+    modalContent: {
+      width: '84%',
+      padding: 20,
+      backgroundColor: '#fff',
+      borderRadius: 10,
+      maxHeight:500,
+    },
+    modalTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      marginBottom: 15,
+      textAlign:'center',
+    },
+    modalItem: {
+      padding: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: '#ccc',
+  
+    },
+    modalText: {
+      fontSize: 16,
+    },
+    btnClose:{
+      borderRadius:5,
+      backgroundColor:'red',
+      paddingVertical:12,
+      elevation:10,
+      justifyContent: 'flex-end',
+      alignItems:'center',
+      marginHorizontal:'20%',
+      marginBottom:15,
+      
+    },
+    btnDisp:{
+      borderRadius:5,
+      marginBottom:15,
+      marginTop:15,
+      paddingVertical:12,
+      elevation:10,
+      justifyContent: 'flex-end',
+      alignItems:'center',
+      marginHorizontal:'20%',
+      backgroundColor:'#1bad46',
+    },
 
 })

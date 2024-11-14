@@ -1,6 +1,7 @@
 import { Text, StyleSheet, View ,FlatList,TouchableOpacity } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import styles from '../Styles';
+import { useFocusEffect } from '@react-navigation/native';
 
   const HorarioSelector = ({onSelectHorario , selectedDate}) => {
 
@@ -46,17 +47,21 @@ import styles from '../Styles';
             headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
             body: JSON.stringify({ data : selectedDate})
         };
-        await fetch('http://10.0.2.2:5000',requestOptions)
+        console.log(selectedDate)
+        await fetch('http://10.0.2.2:5000/horarios',requestOptions)
                 .then(response => response.json())
                 .then(horas => setHorario(horas))
                 .catch(error => console.error('Error fetching data:', error));
     };
-    useEffect(() => {
-      
-      obterListaHoras();
-      
-      
-    }, [selectedDate]);
+
+    useFocusEffect(
+      React.useCallback(() => {
+        setShowServices(false)
+        setSelecionado('Escolha um horario')
+        obterListaHoras();
+      },[selectedDate])
+    );
+    
    
     return (
       <View style={stilo.container} >
