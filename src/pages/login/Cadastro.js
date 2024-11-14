@@ -36,9 +36,17 @@ const Cadastro = ({navigation}) => {
   mudarEmail=(em)=>{
     setEmail(em)
   }
+
   const cadastrar = async () => {
-    
-    console.log(user + "-" + senha);
+    if (!user  || !nome   || !numero  || !senha  || !senha1){
+      setCondicao("Preencha todos os campos")
+      setModalVisible(true)
+    }else if( senha != senha1){
+      setCondicao("A senha digitada deve ser igual nos dois campos")
+      setModalVisible(true)
+    }
+    else{
+      console.log(user + "-" + senha);
     const requestOptions = {
         method: 'POST',
         mode: 'cors',
@@ -50,8 +58,12 @@ const Cadastro = ({navigation}) => {
         .then(response => response.json())
         .then(data => conclui(data))
         .catch(error => console.error('Error fetching data:', error));
-        
+  
   }
+}
+
+    
+    
 
   function entrar(){
     if (condicao == 'cadastrado'){
@@ -61,11 +73,7 @@ const Cadastro = ({navigation}) => {
   
   function conclui(msg) {
   
-    if (!user  || !nome   || !numero  || !senha  || !senha1){
-      setCondicao("Preencha todos os campos")
-    } else if( senha != senha1){
-      setCondicao("A senha digitada deve ser igual nos dois campos")
-    } else if (msg.error) {
+    if (msg.error) {
       setCondicao(msg.error);
     } else if(msg.status){
       setCondicao(msg.status);
